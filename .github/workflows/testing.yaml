@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Test React App
 on: push
 jobs:
@@ -10,3 +11,5 @@ jobs:
         run: npm ci
       - name: Test application
         run: npm run test
+=======
+>>>>>>> 208498eb0ddd2214a3b07ead80e0689a7fac8856
