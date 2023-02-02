@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import newLogo from './icons8-react.svg';
 import './App.css';
 
 function App() {
@@ -6,6 +7,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <img src={newLogo} className="App-logo" alt="logo" />
+        <h1>Title React Page Start</h1>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -15,7 +18,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React!!!
         </a>
       </header>
     </div>
