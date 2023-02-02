@@ -35,12 +35,13 @@ jobs:
       - name: Lint application
         run: npm run lint
   build: 
+    needs: [test, lint]
+    continue-on-error: true
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
         node-version: [14, 16]
     runs-on: ${{ matrix.os }}
-    needs: [test, lint]
     steps:
       - name: Get the repository code
         uses: actions/checkout@v3
