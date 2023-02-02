@@ -15,3 +15,11 @@ jobs:
         with:
           path: build
           name: upload-artefact
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Get deploy project
+        uses: actions/download-artifact@v3
+        with:
+          name: upload-artefact
