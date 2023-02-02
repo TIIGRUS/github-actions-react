@@ -11,26 +11,49 @@ jobs:
     steps:
       - name: Get the repository code
         uses: actions/checkout@v3
+      - name: Cache node files
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
         run: npm ci
       - name: Test application
         run: npm run test
   lint: 
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - name: Get the repository code
         uses: actions/checkout@v3
+      - name: Cache node files
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
         run: npm ci
       - name: Lint application
         run: npm run lint
   build: 
-    runs-on: ubuntu-latest
-    needs: lint
+    needs: [test, lint]
+    continue-on-error: true
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [14, 16]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Get the repository code
         uses: actions/checkout@v3
+      - name: Install Node Version
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version}}
+      - name: Cache node files
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
         run: npm ci
       - name: Build application
